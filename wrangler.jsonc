@@ -1,0 +1,22 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "fortwarp",
+  "main": "worker.js",
+  // Bump when you adopt newer platform features; never lower it.
+  "compatibility_date": "2026-11-07",
+
+  // The static site. Files in ./public are served as-is, without running the Worker.
+  // Custom response headers for these files live in ./public/_headers (not here).
+  // Requests that match no file fall through to worker.js, which serves the branded 404 page.
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS"
+  },
+
+  // Email Sending (Cloudflare Email Service). Onboard fortwarp.com first:
+  //   dashboard → Compute → Email Service → Email Sending → Onboard Domain.
+  // "remote": true means `wrangler dev` sends real emails; remove it to simulate locally instead.
+  "send_email": [
+    { "name": "CONTACT_EMAIL", "remote": true }
+  ]
+}
