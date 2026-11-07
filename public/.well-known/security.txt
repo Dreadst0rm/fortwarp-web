@@ -1,0 +1,6 @@
+Contact: mailto:hello@fortwarp.com
+Expires: 2027-11-07T00:00:00.000Z
+Preferred-Languages: en
+Policy: https://fortwarp.com/security.html
+PGPKey: https://fortwarp.com/.well-known/pgp-key.txt
+Canonical: https://fortwarp.com/.well-known/security.txt

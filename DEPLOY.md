@@ -96,3 +96,12 @@ Then confirm the email actually landed in ed@efortune.tech (check spam too).
 - **404 design choice:** unmatched requests fall through to worker.js (no
   `not_found_handling` set), so `/api/*` is guaranteed to reach the Worker on one
   deterministic path, and the 404 page still comes from the static bundle via `env.ASSETS`.
+- **`html_handling: "none"`:** Cloudflare's default (`auto-trailing-slash`) would 307
+  every `/page.html` to an extensionless URL — breaking this site's canonical/og/sitemap
+  URLs. With `none`, `.html` pages are served as-is; the cost is that `/` no longer maps
+  to index.html automatically, so worker.js serves it explicitly. Revisit if you ever add
+  a directory with an index.html (e.g. `/blog/index.html`).
+- **Security disclosure files:** `/.well-known/security.txt` (RFC 9116) links to
+  `security.html` and `/.well-known/pgp-key.txt`. Renew the `Expires:` date in security.txt
+  yearly, and if you rotate the PGP key update both the file and the fingerprint on
+  security.html. The private key lives outside the deploy dir (see chat notes) — never commit it.

@@ -191,6 +191,12 @@ export default {
       return Response.redirect(url.toString(), 301);
     }
 
+    // Root URL → index.html. html_handling is "none" (see wrangler.jsonc), so the
+    // assets layer won't map "/" for us — serve the file explicitly.
+    if (url.pathname === '/') {
+      return env.ASSETS.fetch('https://assets.local/index.html');
+    }
+
     // Contact form.
     if (url.pathname === '/api/contact') return handleContact(request, env);
 

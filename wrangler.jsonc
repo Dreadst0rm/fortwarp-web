@@ -10,7 +10,12 @@
   // Requests that match no file fall through to worker.js, which serves the branded 404 page.
   "assets": {
     "directory": "./public",
-    "binding": "ASSETS"
+    "binding": "ASSETS",
+    // Serve /page.html as-is (200, no redirect). The default "auto-trailing-slash"
+    // would 307 every .html link to an extensionless URL, breaking the canonical,
+    // og:url and sitemap URLs this site was built around. public/ has no directory
+    // index pages, so disabling html_handling loses nothing here.
+    "html_handling": "none"
   },
 
   // Email Sending (Cloudflare Email Service). Onboard fortwarp.com first:
